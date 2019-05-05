@@ -13,20 +13,20 @@ type Logger interface {
 
 	IsErrorEnabled() bool
 
-	Debug(msg string, logbean LoggerBean)
+	Debug(msg string, logbean StructBean)
 
-	Info(msg string, logbean LoggerBean)
+	Info(msg string, logbean StructBean)
 
-	Warn(msg string, logbean LoggerBean)
+	Warn(msg string, logbean StructBean)
 
-	Error(msg string, logbean LoggerBean)
+	Error(msg string, logbean StructBean)
 }
 
 // LoggerFactory define the base logger factory manager
 type LoggerFactory interface {
 
 	// NewLoggerBean define
-	NewLoggerBean() LoggerBean
+	NewLoggerBean() StructBean
 
 	// CreateLogger get the base logger
 	GetLogger() Logger

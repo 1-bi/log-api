@@ -1,10 +1,11 @@
 package logapi
 
-// FactoryRegister the interface provide the factory register
-type FactoryRegister interface {
+// StructLoggerRegister the interface provide the factory register
+type StructLoggerRegister interface {
 
 	// CreateLogger return the instance logger with multiopts
-	CreateLogger(multiopts ...Option) (Logger, error)
+	CreateLogger(loggerName string, multiopts ...Option) (Logger, error)
 
-	CreateLoggerBean() LoggerBean
+	// CreateStructBean
+	CreateStructBean() StructBean
 }

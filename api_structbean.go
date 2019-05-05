@@ -2,8 +2,8 @@ package logapi
 
 import "time"
 
-// LoggerBean Message object is logger info use common
-type LoggerBean interface {
+// StructBean Message object is logger info use common
+type StructBean interface {
 	LogBinary(key string, value []byte)
 
 	LogByteString(key string, values []byte)

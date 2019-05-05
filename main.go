@@ -1,5 +1,0 @@
-package logapi
-
-func main() {
-
-}

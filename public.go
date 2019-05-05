@@ -15,31 +15,29 @@ const (
 
 // GetLogger define the custom logger , loggername is mark for identifing logger function
 func GetLogger(loggerName string) Logger {
-	return _globalLogger
-}
 
-//
-func NewLoggerBean() LoggerBean {
-	return _globalLoggerBean
-}
-
-// NewLoggerFactory create new logger factory manager by logger provider register
-func NewLoggerFactory(reg FactoryRegister, opts ...Option) LoggerFactory {
-
-	logger, err := reg.CreateLogger(opts...)
+	logger, err := _globalLoggerBean.CreateLogger(loggerName, _globalOpts...)
 
 	if err != nil {
 		log.Panic(err)
 		return nil
 	}
 
-	// create another object
-	var factory = &baseLoggerFactory{logger, reg}
+	return logger
+}
 
-	// --- register logger object to instance ,gloal define
-	_globalLogger = logger
+//
+func NewLoggerBean() StructBean {
+	return _globalLoggerBean.CreateStructBean()
+}
 
-	reg.CreateLoggerBean()
+// LoggerFactoryRegister create new logger factory manager by logger provider register
+func LoggerFactoryRegister(reg StructLoggerRegister, opts ...Option) error {
 
-	return factory
+	_globalOpts = opts
+
+	_globalLoggerBean = reg
+
+	return nil
+
 }
