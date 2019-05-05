@@ -1,5 +1,6 @@
 package logapi
 
+// Layout layout is api for display layout format in output
 type Layout interface {
 	SetCharset(cs string)
 

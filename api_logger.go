@@ -1,8 +1,6 @@
 package logapi
 
-/**
- * create binder interface
- */
+// Logger create binder interface
 type Logger interface {
 	// ----
 	IsDebugEnabled() bool
@@ -25,7 +23,7 @@ type Logger interface {
 // LoggerFactory define the base logger factory manager
 type LoggerFactory interface {
 
-	// NewLoggerBean define
+	// NewStructBean define
 	NewLoggerBean() StructBean
 
 	// CreateLogger get the base logger

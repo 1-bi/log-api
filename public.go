@@ -26,8 +26,8 @@ func GetLogger(loggerName string) Logger {
 	return logger
 }
 
-//
-func NewLoggerBean() StructBean {
+// NewStructBean create new struct bean for struct logger message
+func NewStructBean() StructBean {
 	return _globalLoggerBean.CreateStructBean()
 }
 
