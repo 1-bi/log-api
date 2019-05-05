@@ -4,11 +4,11 @@ import "log"
 
 // define delvel const for object
 const (
-	DEVEL_DEBUG = 1
-	DEVEL_INFO  = 2
-	DEVEL_WARN  = 3
-	DEVEL_ERROR = 4
-	DEVEL_FATAL = 5
+	DEBUG = 1
+	INFO  = 2
+	WARN  = 3
+	ERROR = 4
+	FATAL = 5
 )
 
 // open public api source in this file
