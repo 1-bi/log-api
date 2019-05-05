@@ -10,5 +10,6 @@ type Appender interface {
 	// set the layout
 	SetLayout(layout Layout)
 
+	// get open layout
 	GetLayout() Layout
 }
