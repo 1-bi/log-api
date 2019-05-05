@@ -1,0 +1,5 @@
+package logapi
+
+func main() {
+
+}
