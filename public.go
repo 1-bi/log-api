@@ -13,8 +13,8 @@ const (
 
 // open public api source in this file
 
-// GetLogger define the custom logger ,  input module to load objectg
-func GetLogger(modName string) Logger {
+// GetLogger define the custom logger , loggername is mark for identifing logger function
+func GetLogger(loggerName string) Logger {
 	return _globalLogger
 }
 
@@ -38,6 +38,8 @@ func NewLoggerFactory(reg FactoryRegister, opts ...Option) LoggerFactory {
 
 	// --- register logger object to instance ,gloal define
 	_globalLogger = logger
+
+	reg.CreateLoggerBean()
 
 	return factory
 }
