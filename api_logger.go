@@ -2,6 +2,9 @@ package logapi
 
 // Logger create binder interface
 type Logger interface {
+	// define logger name
+	GetName() string
+
 	// ----
 	IsDebugEnabled() bool
 
@@ -11,6 +14,8 @@ type Logger interface {
 
 	IsErrorEnabled() bool
 
+	IsFatalEnabled() bool
+
 	Debug(msg string, logbean StructBean)
 
 	Info(msg string, logbean StructBean)
@@ -18,6 +23,8 @@ type Logger interface {
 	Warn(msg string, logbean StructBean)
 
 	Error(msg string, logbean StructBean)
+
+	Fatal(msg string, logbean StructBean)
 }
 
 // LoggerFactory define the base logger factory manager
