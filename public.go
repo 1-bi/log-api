@@ -32,12 +32,18 @@ func NewStructBean() StructBean {
 }
 
 // LoggerFactoryRegister create new logger factory manager by logger provider register
-func RegisterLoggerFactory(reg StructLoggerRegister, opts ...Option) error {
+func RegisterLoggerFactory(reg StructLoggerRegister, opts ...Option) (Logger, error) {
 
 	_globalOpts = opts
 
 	_globalLoggerBean = reg
 
-	return nil
+	logger, err := reg.CreateLogger("main", opts...)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return logger, nil
 
 }
