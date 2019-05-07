@@ -73,13 +73,13 @@ func GetLogger(loggerName string) Logger {
 		return runtimeLogger
 	}
 
-	var parentParteds = make([]string, 0)
-
 	// --- find and match logger pattern
 	var partedNames = strings.Split(loggerName, ".")
+	var patternSize = len(partedNames) - 1
+	var parentParteds = make([]string, patternSize)
 
-	for i := 0; i < len(partedNames)-1; i++ {
-		parentParteds = append(parentParteds, partedNames[i])
+	for i := 0; i < patternSize; i++ {
+		parentParteds[i] = partedNames[i]
 	}
 	var parentPattern = strings.Join(partedNames, ".")
 	runtimeLogger = _logPatternHolder[parentPattern]
