@@ -53,8 +53,15 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 	for i := 0; i < patternSize; i++ {
 		parentParteds[i] = partedNames[i]
 	}
-	var parentPattern = strings.Join(partedNames, ".")
+	var parentPattern = strings.Join(parentParteds, ".")
 	var runtimeLogger = _logPatternHolder[parentPattern]
+
+	// --- get the main logger ,if not logger mapper
+	if runtimeLogger == nil && patternSize == 0 {
+		// --- get the main logger directory
+		runtimeLogger = _logPatternHolder["main"]
+	}
+
 	if runtimeLogger == nil {
 		// create new logger pattern
 		runtimeLogger = findCloseLoggerByLoggerPattern(parentPattern)
