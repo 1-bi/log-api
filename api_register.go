@@ -4,7 +4,7 @@ package logapi
 type StructLoggerRegister interface {
 
 	// CreateLogger return the instance logger with multiopts
-	CreateLogger(loggerName string, multiopts ...Option) (Logger, error)
+	CreateLogger(multiopts ...Option) ([]Logger, error)
 
 	// CreateStructBean
 	CreateStructBean() StructBean

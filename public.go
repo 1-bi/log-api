@@ -1,7 +1,6 @@
 package logapi
 
 import (
-	"log"
 	"strings"
 )
 
@@ -16,37 +15,28 @@ const (
 
 // open public api source in this file
 
-func getLogger(loggerName string) Logger {
-
-	logger, err := _globalLoggerBean.CreateLogger(loggerName, _globalOpts...)
-
-	if err != nil {
-		log.Panic(err)
-		return nil
-	}
-
-	return logger
-}
-
 // NewStructBean create new struct bean for struct logger message
 func NewStructBean() StructBean {
 	return _globalLoggerBean.CreateStructBean()
 }
 
 // LoggerFactoryRegister create new logger factory manager by logger provider register
-func RegisterLoggerFactory(reg StructLoggerRegister, opts ...Option) (Logger, error) {
-
-	_globalOpts = opts
+func RegisterLoggerFactory(reg StructLoggerRegister, opts ...Option) ([]Logger, error) {
 
 	_globalLoggerBean = reg
 
-	logger, err := reg.CreateLogger("main", opts...)
+	loggers, err := reg.CreateLogger(opts...)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return logger, nil
+	// --- init logger holder  ----
+	for _, logVal := range loggers {
+		_logPatternHolder[logVal.GetName()] = logVal
+	}
+
+	return loggers, nil
 
 }
 
