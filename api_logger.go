@@ -27,6 +27,13 @@ type Logger interface {
 	Fatal(msg string, logbean StructBean)
 }
 
+// CompositeLogger with parent logger define
+type CompositeLogger interface {
+	SetParentLogger(parentLogger Logger)
+
+	GetParentLogger() Logger
+}
+
 // LoggerFactory define the base logger factory manager
 type LoggerFactory interface {
 

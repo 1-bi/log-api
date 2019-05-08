@@ -53,25 +53,7 @@ func RegisterLoggerFactory(reg StructLoggerRegister, opts ...Option) (Logger, er
 var _logPatternHolder = make(map[string]Logger)
 
 //  define holder
-func InitLoggerPattern(loggerNames []string, defaultMainLogger Logger) {
-	// use init logger
-	for _, logName := range loggerNames {
-		_logPatternHolder[logName] = getLogger(logName)
-	}
-
-	_logPatternHolder["main"] = defaultMainLogger
-
-}
-
-// GetLogger define the custom logger , loggername is mark for identifing logger function
-func GetLogger(loggerName string) Logger {
-
-	// get logger by id
-	var runtimeLogger = _logPatternHolder[loggerName]
-
-	if runtimeLogger != nil {
-		return runtimeLogger
-	}
+func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 
 	// --- find and match logger pattern
 	var partedNames = strings.Split(loggerName, ".")
@@ -82,12 +64,26 @@ func GetLogger(loggerName string) Logger {
 		parentParteds[i] = partedNames[i]
 	}
 	var parentPattern = strings.Join(partedNames, ".")
-	runtimeLogger = _logPatternHolder[parentPattern]
+	var runtimeLogger = _logPatternHolder[parentPattern]
 	if runtimeLogger == nil {
 		// create new logger pattern
-		_logPatternHolder[parentPattern] = getLogger(parentPattern)
-		runtimeLogger = _logPatternHolder[parentPattern]
+		runtimeLogger = findCloseLoggerByLoggerPattern(parentPattern)
 	}
+	return runtimeLogger
+
+}
+
+// GetLogger define the custom logger , loggername is mark for identifing logger function . get close patten logger
+func GetLogger(loggerName string) Logger {
+
+	// get logger by id
+	var runtimeLogger = _logPatternHolder[loggerName]
+
+	if runtimeLogger != nil {
+		return runtimeLogger
+	}
+
+	runtimeLogger = findCloseLoggerByLoggerPattern(loggerName)
 
 	// ---- get root logger ---
 	if runtimeLogger == nil && _logPatternHolder[loggerName] == nil {
