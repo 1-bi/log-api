@@ -29,6 +29,8 @@ type Logger interface {
 
 // CompositeLogger with parent logger define
 type CompositeLogger interface {
+	Logger
+
 	SetParentLogger(parentLogger Logger)
 
 	GetParentLogger() Logger
