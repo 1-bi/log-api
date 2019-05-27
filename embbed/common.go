@@ -1,8 +1,8 @@
 package embbed
 
 import (
-	"log"
 	"io"
+	"log"
 )
 
 var (
@@ -27,7 +27,7 @@ func Init(
 		log.Ldate|log.Ltime|log.Lshortfile)
 
 	Warning = log.New(warningHandle,
-		"WARNING: ",
+		"WARN: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 
 	Error = log.New(errorHandle,
