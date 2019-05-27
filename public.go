@@ -67,13 +67,13 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 	}
 
 	// fix bug for no logger implement
-	if strings.TrimSpace(parentPattern) == "" {
+	if _globalLoggerBean == nil && strings.TrimSpace(parentPattern) == "" {
 		log.Println("Could not find any logger implement for log-api.")
 		log.Println("Embbed logger implement would be used.Please import a logger implement.")
 		return useEmbbedLogger()
 	}
 
-	if _globalLoggerBean == nil && runtimeLogger == nil {
+	if runtimeLogger == nil {
 		// create new logger pattern
 		runtimeLogger = findCloseLoggerByLoggerPattern(parentPattern)
 	}
