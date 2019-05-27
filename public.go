@@ -2,6 +2,10 @@ package logapi
 
 import (
 	"strings"
+	"log"
+	"github.com/1-bi/log-api/embbed"
+	"io/ioutil"
+	"os"
 )
 
 // define delvel const for object
@@ -62,6 +66,14 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 		runtimeLogger = _logPatternHolder["main"]
 	}
 
+	// fix bug for no logger implement
+	if strings.TrimSpace(parentPattern) == "" {
+		log.Println("Could not find any logger implement for log-api.")
+		log.Println("Embbed logger implement would be used.Please import a logger implement.")
+		return useEmbbedLogger()
+	}
+
+
 	if runtimeLogger == nil {
 		// create new logger pattern
 		runtimeLogger = findCloseLoggerByLoggerPattern(parentPattern)
@@ -69,6 +81,16 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 	return runtimeLogger
 
 }
+
+func useEmbbedLogger() Logger {
+
+	embbed.Init(ioutil.Discard, os.Stdout, os.Stdout, os.Stderr)
+	logger := embbed.NewEmbbedLogger( DEBUG , "main")
+	_logPatternHolder["main"] = logger
+	return logger
+
+}
+
 
 // GetLogger define the custom logger , loggername is mark for identifing logger function . get close patten logger
 func GetLogger(loggerName string) Logger {
