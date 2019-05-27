@@ -73,7 +73,7 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 		return useEmbbedLogger()
 	}
 
-	if runtimeLogger == nil {
+	if _globalLoggerBean == nil && runtimeLogger == nil {
 		// create new logger pattern
 		runtimeLogger = findCloseLoggerByLoggerPattern(parentPattern)
 	}
