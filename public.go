@@ -73,6 +73,11 @@ func findCloseLoggerByLoggerPattern(loggerName string) Logger {
 
 	// fix bug for no logger implement
 	if _globalLoggerBean == nil && strings.TrimSpace(parentPattern) == "" {
+
+		if _logPatternHolder["main"] != nil {
+			return _logPatternHolder["main"]
+		}
+
 		log.Println("Could not find any logger implement for log-api.")
 		log.Println("Embbed logger implement would be used.Please import a logger implement.")
 		return useEmbbedLogger()
@@ -115,6 +120,7 @@ func GetLogger(loggerName string) Logger {
 
 	// ---- get root logger ---
 	if runtimeLogger == nil && _logPatternHolder[loggerName] == nil {
+
 		// use default logger
 		runtimeLogger = _logPatternHolder["main"]
 	}
