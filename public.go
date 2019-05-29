@@ -21,6 +21,11 @@ const (
 
 // NewStructBean create new struct bean for struct logger message
 func NewStructBean() StructBean {
+
+	if _globalLoggerBean == nil {
+		return useEmbbedStructBean()
+	}
+
 	return _globalLoggerBean.CreateStructBean()
 }
 
@@ -87,7 +92,12 @@ func useEmbbedLogger() Logger {
 	logger := NewEmbbedLogger(DEBUG, "main")
 	_logPatternHolder["main"] = logger
 	return logger
+}
 
+func useEmbbedStructBean() StructBean {
+
+	elb := new(embbedLoggerBean)
+	return elb
 }
 
 // GetLogger define the custom logger , loggername is mark for identifing logger function . get close patten logger
