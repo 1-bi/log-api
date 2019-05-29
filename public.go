@@ -97,6 +97,7 @@ func useEmbbedLogger() Logger {
 func useEmbbedStructBean() StructBean {
 
 	elb := new(embbedLoggerBean)
+	elb.fieldProps = make(map[string]Field)
 	return elb
 }
 
