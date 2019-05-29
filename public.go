@@ -95,7 +95,9 @@ func useEmbbedLogger() Logger {
 }
 
 func useEmbbedStructBean() StructBean {
-	return nil
+
+	elb := new(embbedLoggerBean)
+	return elb
 }
 
 // GetLogger define the custom logger , loggername is mark for identifing logger function . get close patten logger
